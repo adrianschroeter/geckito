@@ -1,0 +1,7 @@
+<pbuild>
+  <preset name="aarch64" default>
+    <config>sl15.3</config>
+    <repo>https://download.opensuse.org/repositories/home:duwe:crosstools2/openSUSE_Leap_15.3</repo>
+    <repo>config:</repo>
+  </preset>
+</pbuild>

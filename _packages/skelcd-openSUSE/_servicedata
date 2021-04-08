@@ -1,0 +1,4 @@
+<servicedata>
+<service name="tar_scm">
+            <param name="url">git://github.com/openSUSE/skelcd-openSUSE.git</param>
+          <param name="changesrevision">a5d2a6285cd130648b502f65e3606df2f9d26ae1</param></service></servicedata>

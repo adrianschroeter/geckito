@@ -1,0 +1,5 @@
+Prefer: geckito-release
+
+BuildEngine: podman
+
+
