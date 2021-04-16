@@ -1,0 +1,10 @@
+
+Target: aarch64-suse-linux-gnu
+
+Prefer: -kiwi-systemdeps-disk-images
+
+#Required: cross-arm-linux-gnueabi-glibc
+#Required: cross-arm-linux-gnueabi-gcc
+#Required: cross-arm-linux-gnueabi-kernel-headers
+
+

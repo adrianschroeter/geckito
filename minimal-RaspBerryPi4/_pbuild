@@ -1,0 +1,11 @@
+<pbuild>
+  <preset name="aarch64" default>
+    <config>sl15.3</config>
+    <repo>https://download.opensuse.org/repositories/home:adrianSuSE:branches:SUSE:SLE-15-SP3:GA/standard</repo>
+    <repo>config:</repo>
+    <arch>aarch64</arch>
+  </preset>
+  <preset name="armv7hl">
+    <config>sl15.3</config>
+  </preset>
+</pbuild>
