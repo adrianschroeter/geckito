@@ -53,10 +53,14 @@
     <package name="u-boot-rpiarm64" bootinclude="true"/>
     <package name="raspberrypi-eeprom"/>
     <package name="bcm43xx-firmware"/>
+
+
     <!-- JeOS: Base patterns -->
+<!--
     <package name="patterns-base-base"/>
     <package name="patterns-base-basesystem"/>
     <package name="patterns-base-console"/>
+-->
     <package name="patterns-base-sw_management"/>
     <!-- JeOS: Additonal base packages -->
     <package name="aaa_base-extras"/>
@@ -64,88 +68,62 @@
     <package name="busybox"/>
     <!-- Avoid the big 10MiB one -->
     <package name="dracut"/>
-    <package name="e2fsprogs"/>
     <package name="filesystem"/>
-    <package name="fipscheck"/>
-    <package name="firewalld"/>
-    <package name="gettext-runtime"/>
     <!-- Do not use gettext-runtime-mini-->
-    <package name="gio-branding-openSUSE"/>
-    <package name="glibc-locale"/>
-    <package name="gpg2"/>
     <package name="gptfdisk" bootinclude="true"/>
     <package name="grub2" bootinclude="true"/>
+
+
+    <package name="gettext-runtime"/>
+    <package name="gio-branding-openSUSE"/>
+    <package name="glibc-locale"/>
     <package name="grub2-branding-openSUSE" bootinclude="true"/>
+    <package name="ncurses-utils"/>
+    <package name="libgomp1"/>
+
+
     <package name="grub2-arm64-efi" bootinclude="true"/>
-    <package name="irqbalance"/>
-    <!--<package name="gvfs-common"/> -->
-    <package name="insserv-compat"/>
-    <package name="iproute2"/>
-    <package name="iputils"/>
-    <package name="issue-generator"/>
     <!-- Required to have a banner -->
     <package name="iw"/>
     <package name="kernel-firmware-all"/>
     <package name="kmod"/>
-    <package name="krb5"/>
-    <!-- Do not use krb5-mini -->
     <package name="less"/>
     <package name="libudev1"/>
-    <!-- Do not use libudev-mini1 -->
-    <package name="libyui-ncurses-pkg"/>
-    <package name="lsof"/>
-    <!-- For zypper ps (bsc#1167553) -->
-    <package name="ncurses-utils"/>
     <package name="net-tools"/>
-    <package name="ntfs-3g"/>
-    <package name="ntfsprogs"/>
-    <package name="openssh"/>
     <package name="openSUSE-build-key"/>
     <package name="openSUSE-release"/>
     <!-- Available only for Leap: <package name="openSUSE-release-appliance-custom"/> -->
     <!-- Tumbleweed uses openSUSE-release-ftp -->
     <package name="openSUSE-release-ftp"/>
     <package name="pam"/>
-    <!-- Previously pam_cracklib was part of pam, but the replacement is only recommended -->
-    <package name="pam_pwquality"/>
-    <!-- rsync is expected on JeOS -->
-    <package name="rsync"/>
     <package name="shadow"/>
-    <package name="sudo"/>
     <package name="sysconfig"/>
     <package name="sysconfig-netconfig"/>
     <package name="system-group-hardware" bootinclude="true"/>
     <package name="system-user-lp" bootinclude="true"/>
     <package name="systemd"/>
     <!-- avoid using systemd-mini -->
-    <package name="systemd-presets-branding-openSUSE"/>
     <package name="systemd-sysvinit"/>
     <package name="systemd-logger"/>
     <package name="timezone"/>
     <package name="udev"/>
-    <package name="upower"/>
-    <package name="usbutils"/>
     <package name="util-linux-systemd"/>
     <package name="vim"/>
-    <package name="wget"/>
     <package name="which"/>
-    <package name="wireless-tools"/>
-    <package name="wpa_supplicant"/>
     <!-- JeOS: multiple choices -->
     <package name="libgcc_s1"/>
-    <package name="libgomp1"/>
     <package name="libsystemd0"/>
     <!-- avoid using libsystemd0-mini -->
-    <package name="unzip"/>
     <!--Do not install both wicked and Network Manager - boo#1141433-->
     <package name="wicked"/>
     <package name="wicked-service"/>
   </packages>
+	  <!-- using busybox by default
   <packages type="delete">
-    <!-- not needed at runtime, but removing would happen too early
-                <package name="qemu-linux-user-arm" />
--->
+    <package name="bash"/>
+    <package name="zypper"/>
   </packages>
+	       -->
   <packages type="image">
     <package name="dracut-kiwi-oem-repart"/>
     <package name="live-add-yast-repos"/>
