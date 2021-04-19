@@ -9,6 +9,7 @@ Required: build-initvm-x86_64
 Required: gptfdisk
 Required: kpartx
 Required: dosfstools
+Required: python3-kiwi_crossprepare_plugin
 
 #Required: cross-arm-linux-gnueabi-glibc
 #Required: cross-arm-linux-gnueabi-gcc
