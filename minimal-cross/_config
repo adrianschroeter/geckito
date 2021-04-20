@@ -6,7 +6,9 @@ Required: cross-aarch64-glibc
 Required: cross-aarch64-gcc9
 #Required: cross-aarch64-kernel-headers
 
+Support: !post-build-checks
+
 Macros:
-%_cross_gcc=/usr/bin/%{_target_cpu}-suse-linux-gcc-9
+%_cross_gcc /usr/bin/%{_target_cpu}-suse-linux-gcc-9
 :Macros
 

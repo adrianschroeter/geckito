@@ -60,13 +60,13 @@ echo "%_target_cpu" != "%_host_cpu"
 #HACK
 export LDFLAGS="-L/usr/lib64/gcc/aarch64-suse-linux/lib64"
 
-export CC=%cross_gcc
+export CC=%_cross_gcc
 %else
 echo Not supported %_target_cpu
 exit 1
 %endif
 %endif
-%configure --host=%_target
+%configure --build="%_host_cpu"-suse-linux --host=%_target
 
 
 %if %do_profiling && "%_target_cpu" == "%_host_cpu"
