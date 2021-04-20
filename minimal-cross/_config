@@ -10,5 +10,6 @@ Support: !post-build-checks
 
 Macros:
 %_cross_gcc /usr/bin/%{_target_cpu}-suse-linux-gcc-9
+%_cross_gxx /usr/bin/%{_target_cpu}-suse-linux-g++-9
 :Macros
 
