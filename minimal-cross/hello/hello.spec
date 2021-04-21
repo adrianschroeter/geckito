@@ -57,9 +57,6 @@ export CFLAGS="%{optflags}"
 %if "%_target_cpu" != "%_host_cpu"
 echo "%_target_cpu" != "%_host_cpu"
 %if "%_target_cpu" == "aarch64" || "%_target_cpu" == "armv7hl" || "%_target_cpu" == "armv6l"
-#HACK
-export LDFLAGS="-L/usr/lib64/gcc/aarch64-suse-linux/lib64"
-
 export CC=%_cross_gcc
 %else
 echo Not supported %_target_cpu
