@@ -1,5 +1,5 @@
 <pbuild>
-  <preset name="aarch64" default>
+  <preset name="aarch64" default arch="aarch64">
     <config>sl15.3</config>
     <hostrepo>https://download.opensuse.org/repositories/home:/adrianSuSE:/Geckito/standard</hostrepo>
     <hostrepo>config:</hostrepo>
