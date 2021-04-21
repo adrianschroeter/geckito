@@ -1,6 +1,8 @@
 
+Target: aarch64-suse-linux
 HostArch: x86_64
 
+Required: cross-aarch64-gcc9
 FromHost: cross-aarch64-gcc9
 Ignore: libncurses6:cross-aarch64-gcc9
 Ignore: cross-aarch64-gcc9:libncurses6
