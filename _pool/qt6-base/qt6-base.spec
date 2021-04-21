@@ -55,6 +55,7 @@ BuildRequires:  perl
 BuildRequires:  pkgconfig
 BuildRequires:  postgresql-server-devel
 BuildRequires:  qt6-macros
+#!FromHost: qt6-macros
 BuildRequires:  xmlstarlet
 BuildRequires:  cmake(double-conversion)
 BuildRequires:  pkgconfig(atspi-2)
@@ -112,6 +113,7 @@ BuildRequires:  pkgconfig(lttng-ust)
 %endif
 %if "%{qt6_flavor}" == "docs"
 BuildRequires:  qt6-tools
+#!FromHost: qt6-tools
 %{qt6_doc_packages}
 %endif
 
@@ -694,10 +696,11 @@ EOF
     -DQT_FEATURE_relocatable=OFF \
     -DQT_FEATURE_system_sqlite=ON \
     -DQT_FEATURE_enable_new_dtags=ON \
-%if 0%{?_cross_gcc}
+%if 0%{?_cross_gcc:1}
     -DCMAKE_SYSTEM_PROCESSOR=%_target_cpu \
     -DCMAKE_C_COMPILER=%_cross_gcc \
     -DCMAKE_CXX_COMPILER=%_cross_gxx \
+    -DCMAKE_SYSROOT=%_sysroot \
 %endif
 %if 0%{?with_gles}
     -DQT_FEATURE_opengles2=ON \
