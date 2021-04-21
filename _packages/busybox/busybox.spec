@@ -37,6 +37,8 @@ Patch100:       busybox.install.patch
 Provides:       useradd_or_adduser_dep
 BuildRequires:  glibc-devel-static
 BuildRequires:  pkgconfig(libselinux)
+#!FromHost:  libxcrypt-devel
+#!FromHost:  libxcrypt-devel-static
 # for test suite
 BuildRequires:  zip
 
@@ -89,21 +91,21 @@ export BUILD_VERBOSE=2
 export CFLAGS="%{optflags} -fno-strict-aliasing -I/usr/include/tirpc"
 export HOSTCC=gcc
 %if "%_target_cpu" != "%_host_cpu"
-#HACK
-export LDFLAGS="-L/usr/lib64/gcc/aarch64-suse-linux/lib64"
-
 export CROSS_COMPILE=%{_target_cpu}-suse-linux-
+# as long as update-alternatives doesn't work aarch64-suse-linux-gcc
+# doesn't exist, so hardcode the real name:
+ADD_MAKE="CC=${CROSS_COMPILE}gcc-9"
 %endif
 cp -a %{SOURCE3} .config
-make %{?_smp_mflags} -e oldconfig
-make -e %{?_smp_mflags}
+make ${ADD_MAKE} %{?_smp_mflags} -e oldconfig
+make ${ADD_MAKE} -e %{?_smp_mflags}
 mv busybox busybox-static
-make -e %{?_smp_mflags} clean
+make ${ADD_MAKE} -e %{?_smp_mflags} clean
 cp -a %{SOURCE2} .config
-make %{?_smp_mflags} -e oldconfig
+make ${ADD_MAKE} %{?_smp_mflags} -e oldconfig
 #make -e %{?_smp_mflags}
-make -e
-make -e doc busybox.links %{?_smp_mflags}
+make ${ADD_MAKE} -e
+make ${ADD_MAKE} -e doc busybox.links %{?_smp_mflags}
 %if 0%{?usrmerged}
 sed -i -e 's,^/\(s\?bin\)/,/usr/\1/,' busybox.links
 %endif
