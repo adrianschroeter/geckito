@@ -56,12 +56,17 @@
 
 
     <!-- JeOS: Base patterns -->
-<!--
     <package name="patterns-base-base"/>
+<!--
     <package name="patterns-base-basesystem"/>
     <package name="patterns-base-console"/>
--->
     <package name="patterns-base-sw_management"/>
+    <package name="ncurses-utils"/>
+    <package name="libgomp1"/>
+    <package name="gettext-runtime"/>
+    <package name="gio-branding-openSUSE"/>
+    <package name="kernel-firmware-all"/>
+-->
     <!-- JeOS: Additonal base packages -->
     <package name="aaa_base-extras"/>
     <package name="dtc"/>
@@ -73,19 +78,11 @@
     <package name="gptfdisk" bootinclude="true"/>
     <package name="grub2" bootinclude="true"/>
 
-
-    <package name="gettext-runtime"/>
-    <package name="gio-branding-openSUSE"/>
-    <package name="glibc-locale"/>
     <package name="grub2-branding-openSUSE" bootinclude="true"/>
-    <package name="ncurses-utils"/>
-    <package name="libgomp1"/>
-
 
     <package name="grub2-arm64-efi" bootinclude="true"/>
     <!-- Required to have a banner -->
     <package name="iw"/>
-    <package name="kernel-firmware-all"/>
     <package name="kmod"/>
     <package name="less"/>
     <package name="libudev1"/>
@@ -118,12 +115,28 @@
     <package name="wicked"/>
     <package name="wicked-service"/>
   </packages>
-	  <!-- using busybox by default
   <packages type="delete">
-    <package name="bash"/>
+    <package name="patterns-base-base"/>
     <package name="zypper"/>
+    <package name="aaa_base-malloccheck"/>
+    <package name="purge-kernels-service"/>
+    <package name="glibc-locale"/>
+  <!-- using busybox by default, you may want to remove further packages from base pattern
+    <package name="rpm"/>
+    <package name="aaa_base"/>
+    <package name="bash"/>
+    <package name="ca-certificates-mozilla"/>
+    <package name="coreutils"/>
+    <package name="glibc"/>
+    <package name="libnss_usrfiles2"/>
+    <package name="pam"/>
+    <package name="pam-config"/>
+    <package name="sysconfig"/>
+    <package name="system-user-nobody"/>
+    <package name="systemd"/>
+    <package name="util-linux"/>
+  -->
   </packages>
-	       -->
   <packages type="image">
     <package name="dracut-kiwi-oem-repart"/>
     <package name="live-add-yast-repos"/>

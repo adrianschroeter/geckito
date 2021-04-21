@@ -11,6 +11,10 @@ Required: kpartx
 Required: dosfstools
 Required: python3-kiwi_crossprepare_plugin
 
+# only needed as workaround for chroot builds:
+#Required: kmod
+#Required: kernel-default
+
 #Required: cross-arm-linux-gnueabi-glibc
 #Required: cross-arm-linux-gnueabi-gcc
 #Required: cross-arm-linux-gnueabi-kernel-headers
