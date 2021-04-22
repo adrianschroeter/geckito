@@ -685,6 +685,10 @@ EOF
 %define _lto_cflags %{nil}
 
 # NOTE: ltcg causes linker errors on ppc64
+export PKG_CONFIG_SYSROOT_DIR=%_sysroot/%_libdir/pkgconfig/
+export PKG_CONFIG=/usr/bin/pkg-config
+export CROSS_COMPILE=/usr/bin/aarch64-suse-linux-
+
 %cmake_qt6 \
 %ifnarch ppc64
     -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
@@ -697,10 +701,15 @@ EOF
     -DQT_FEATURE_system_sqlite=ON \
     -DQT_FEATURE_enable_new_dtags=ON \
 %if 0%{?_cross_gcc:1}
-    -DCMAKE_SYSTEM_PROCESSOR=%_target_cpu \
+    -DCMAKE_HOST_SYSTEM_NAME=Linux \
     -DCMAKE_C_COMPILER=%_cross_gcc \
     -DCMAKE_CXX_COMPILER=%_cross_gxx \
     -DCMAKE_SYSROOT=%_sysroot \
+    -DCMAKE_MAKE_PROGRAM=/usr/bin/make \
+    -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER \
+    -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY \
+    -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=ONLY \
+    -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY \
 %endif
 %if 0%{?with_gles}
     -DQT_FEATURE_opengles2=ON \

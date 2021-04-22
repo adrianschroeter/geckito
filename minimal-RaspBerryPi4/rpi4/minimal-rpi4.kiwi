@@ -18,7 +18,7 @@
   </description>
   <!-- OBS-ExclusiveArch: aarch64 -->
   <preferences>
-    <type image="oem" initrd_system="dracut" filesystem="ext4" fsmountoptions="noatime,nobarrier" bootloader="grub2" firmware="efi" efipartsize="64" editbootinstall="uboot-image-raspberrypi-install" kernelcmdline="loglevel=3 splash=silent plymouth.enable=0 console=ttyS0,115200n8" disk_start_sector="8192">
+    <type image="oem" initrd_system="dracut" filesystem="ext4" fsmountoptions="noatime,nobarrier" bootloader="grub2" firmware="efi" efipartsize="64" editbootinstall="uboot-image-raspberrypi-install" kernelcmdline="loglevel=3" disk_start_sector="8192">
       <oemconfig>
         <oem-swap>true</oem-swap>
         <oem-swapsize>500</oem-swapsize>
@@ -42,8 +42,10 @@
     <source path="http://download.opensuse.org/distribution/leap/15.3/repo/oss/"/>
   </repository>
   <packages type="bootstrap">
+<!--
     <package name="kiwi-image-oem-requires"/>
     <package name="kiwi-systemdeps-core"/>
+-->
     <package name="libyui-ncurses-pkg15"/>
 
     <package name="kernel-default" bootinclude="true"/>
@@ -135,10 +137,23 @@
     <package name="system-user-nobody"/>
     <package name="systemd"/>
     <package name="util-linux"/>
+
+    <package name="libyui-ncurses-pkg15"/>
+    <package name="libzypp"/>
+    <package name="btrfsprogs-udev-rules"/>
+    <package name="lvm2"/>
+    <package name="parted"/>
+    <package name="mdadm"/>
   -->
+    <package name="xfsprogs"/>
+    <package name="btrfsprogs"/>
+    <package name="dracut-kiwi-lib"/>
+    <package name="dracut-kiwi-oem-repart"/>
   </packages>
   <packages type="image">
     <package name="dracut-kiwi-oem-repart"/>
+  <!--
     <package name="live-add-yast-repos"/>
+  -->
   </packages>
 </image>
