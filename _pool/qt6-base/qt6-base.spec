@@ -689,7 +689,7 @@ export PKG_CONFIG_SYSROOT_DIR=%_sysroot/%_libdir/pkgconfig/
 export PKG_CONFIG=/usr/bin/pkg-config
 export CROSS_COMPILE=/usr/bin/aarch64-suse-linux-
 
-%cmake_qt6 \
+%cmake_qt6 --debug-output \
 %ifnarch ppc64
     -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
 %endif
@@ -701,7 +701,10 @@ export CROSS_COMPILE=/usr/bin/aarch64-suse-linux-
     -DQT_FEATURE_system_sqlite=ON \
     -DQT_FEATURE_enable_new_dtags=ON \
 %if 0%{?_cross_gcc:1}
+    -G"Unix Makefiles" \
     -DCMAKE_HOST_SYSTEM_NAME=Linux \
+    -DCMAKE_HOST_SYSTEM_PROCESSOR="%_host_cpu" \
+    -DCMAKE_SYSTEM_PROCESSOR=%_target_cpu \
     -DCMAKE_C_COMPILER=%_cross_gcc \
     -DCMAKE_CXX_COMPILER=%_cross_gxx \
     -DCMAKE_SYSROOT=%_sysroot \
