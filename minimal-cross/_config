@@ -1,6 +1,6 @@
-
+%ifarch aarch64
 Target: aarch64-suse-linux
-HostArch: x86_64
+%endif
 
 Required: cross-aarch64-gcc9
 
