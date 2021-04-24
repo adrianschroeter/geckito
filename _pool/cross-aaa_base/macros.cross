@@ -1,0 +1,6 @@
+%cross_sysroot  %{_prefix}/%{_target_cpu}-suse-linux/sys-root
+%cross_gcc %{_bindir}/%{_target_cpu}-suse-linux-gcc-9
+%cross_gxx %{_bindir}/%{_target_cpu}-suse-linux-g++-9
+
+%is_cross %(test %_build_cpu != %_target_cpu && echo 1)
+

@@ -54,19 +54,13 @@ rm -f doc/*.info
 
 %build
 export CFLAGS="%{optflags}"
-%if "%_target_cpu" != "%_host_cpu"
-echo "%_target_cpu" != "%_host_cpu"
-%if "%_target_cpu" == "aarch64" || "%_target_cpu" == "armv7hl" || "%_target_cpu" == "armv6l"
-export CC=%_cross_gcc
-%else
-echo Not supported %_target_cpu
-exit 1
-%endif
+%if 0%{?is_cross}
+export CC=%cross_gcc
 %endif
 %configure --build="%_host_cpu"-suse-linux --host=%_target
 
 
-%if %do_profiling && "%_target_cpu" == "%_host_cpu"
+%if %do_profiling && !0%{?is_cross}
   make CFLAGS="$CFLAGS %cflags_profile_generate" LDFLAGS="-fprofile-arcs"
   make check
   make clean
@@ -76,9 +70,10 @@ exit 1
 %endif
 
 %check
-%if "%_target_cpu" == "%_host_cpu"
-make check
+%if 0%{?is_cross}
+exit 0
 %endif
+make check
 
 %install
 %make_install

@@ -685,8 +685,12 @@ EOF
 # NOTE: ltcg causes linker errors on ppc64
 %define _lto_cflags %{nil}
 
-export PKG_CONFIG=/usr/bin/cross-pkg-config
-export CROSS_COMPILE=/usr/bin/aarch64-suse-linux-
+# the wrapper is not enough, cmake checks that the environment is set 
+#export PKG_CONFIG=%_bindir/cross-%{_target_cpu}-pkg-config
+export PKG_CONFIG_PATH=
+export PKG_CONFIG_LIBDIR=%cross_sysroot%_libdir/pkgconfig:%cross_sysroot/usr/share/pkgconfig
+export PKG_CONFIG_SYSROOT_DIR=%cross_sysroot
+
 
 %cmake_qt6 \
 %ifnarch ppc64
@@ -699,14 +703,15 @@ export CROSS_COMPILE=/usr/bin/aarch64-suse-linux-
     -DQT_FEATURE_relocatable=OFF \
     -DQT_FEATURE_system_sqlite=ON \
     -DQT_FEATURE_enable_new_dtags=ON \
-%if 0%{?_cross_gcc:1}
+%if 0%{?is_cross}
     -G"Unix Makefiles" \
     -DCMAKE_HOST_SYSTEM_NAME=Linux \
-    -DCMAKE_HOST_SYSTEM_PROCESSOR="%_host_cpu" \
+    -DCMAKE_HOST_SYSTEM_PROCESSOR="%_build_cpu" \
     -DCMAKE_SYSTEM_PROCESSOR=%_target_cpu \
-    -DCMAKE_C_COMPILER=%_cross_gcc \
-    -DCMAKE_CXX_COMPILER=%_cross_gxx \
-    -DCMAKE_SYSROOT=%_sysroot \
+    -DCMAKE_C_COMPILER=%cross_gcc \
+    -DCMAKE_CXX_COMPILER=%cross_gxx \
+    -DCMAKE_SYSROOT=%cross_sysroot \
+    -DCROSS_COMPILE=%_bindir/%{_target_cpu}-suse-linux- \
     -DCMAKE_MAKE_PROGRAM=/usr/bin/make \
     -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER \
     -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY \

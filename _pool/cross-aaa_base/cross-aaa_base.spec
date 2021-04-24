@@ -15,14 +15,20 @@
 # Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
+%define tarch @BUILD_FLAVOR@
+%define tlibdir /usr/lib64
+%if "@BUILD_FLAVOR@" == ""
+ExclusiveArch: skipit
+%endif
 
-Name:           cross-aaa_base
+Name:           cross-%{tarch}-aaa_base
 Summary:        Provides the basics for cross compiling on SUSE
 License:        GPL-3.0-or-later
 Group:          Development/Tools/Other
 Version:        0.1
 Release:        0
 Source0:        LICENSE.GPL3
+Source1:        macros.cross
 
 %description
 
@@ -30,23 +36,30 @@ Source0:        LICENSE.GPL3
 
 %build
 cp %{S:0} .
+
+# keep in sync with macros.cross definition
+%define cross_sysroot %{_prefix}/%{tarch}-suse-linux/sys-root
+
 cat > cross-pkg-config <<EOF
 #!/bin/sh
 
 # A wrapper for pkg-config to take the default SUSE sysroot into account
 
 export PKG_CONFIG_PATH=
-export PKG_CONFIG_LIBDIR=%_sysroot/%_libdir/pkgconfig:%_sysroot%_sharedir/pkgconfig
-export PKG_CONFIG_SYSROOT_DIR=%_sysroot
+export PKG_CONFIG_LIBDIR=%cross_sysroot%{tlibdir}/pkgconfig:%cross_sysroot/usr/share/pkgconfig
+export PKG_CONFIG_SYSROOT_DIR=%cross_sysroot
 
 exec pkg-config "$@"
 EOF
 
 %install
-install -D -m 0755 cross-pkg-config %buildroot%{_bindir}/cross-pkg-config
+install -D -m 0755 cross-pkg-config %buildroot%{_bindir}/cross-%{tarch}-pkg-config
+install -D -m 0644 %{S:1} %buildroot/etc/rpm/macros.cross
+sed -i -e 's,@ARCH@,%{tarch},' %buildroot/etc/rpm/macros.cross
 
 %files
 %license LICENSE.GPL3
-%{_bindir}/cross-pkg-config
+%{_bindir}/cross-%{tarch}-pkg-config
+/etc/rpm/macros.cross
 
 %changelog

@@ -179,7 +179,7 @@
         -DCMAKE_INSTALL_PREFIX=%{_qt6_prefix} \\\
         -S %__qt6_sourcedir \\\
         -B %__qt6_builddir \\\
-%if "%__qt6_build_tool" == "%__ninja" \
+%if "%__qt6_build_tool" == "%__ninja" && !0%{?is_cross} \
         -GNinja \\\
 %else \
         -G"Unix Makefiles" \\\
