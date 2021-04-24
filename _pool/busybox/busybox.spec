@@ -127,6 +127,10 @@ ln -s %_bindir/busybox %{buildroot}%{_datadir}/busybox/busybox
 cp -a testsuite %{buildroot}%{_datadir}/busybox/testsuite
 
 %check
+%if "%_target_cpu" != "%_host_cpu"
+# no test suite run in cross build case yet
+exit 0
+%endif
 export KCONFIG_NOTIMESTAMP=KCONFIG_NOTIMESTAMP
 export BUILD_VERBOSE=2
 export CFLAGS="%{optflags} -fno-strict-aliasing -I/usr/include/tirpc"
