@@ -1,16 +1,19 @@
 %ifarch aarch64
 Target: aarch64-suse-linux
+
+# our basic cross tool chain
+Required: cross-aarch64-gcc9
+Required: cross-aaa_base
 %endif
 
-Required: cross-aarch64-gcc9
-
-# workaround cycle dep due to wrong provides
+# temporary workaround to break cycle dep due to wrong provides
 Preinstall: update-alternatives
 Order: update-alternatives:cross-aarch64-gcc9
 
 Ignore: libncurses6:cross-aarch64-gcc9
 Ignore: cross-aarch64-gcc9:libncurses6
 
+# the checks are mostly not valid for cross build
 Support: !post-build-checks
 
 Prefer: -Mesa-libEGL-devel-32bit

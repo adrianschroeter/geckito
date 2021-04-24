@@ -682,14 +682,13 @@ This is a meta package, it does not contain any file
 EOF
 
 %build
+# NOTE: ltcg causes linker errors on ppc64
 %define _lto_cflags %{nil}
 
-# NOTE: ltcg causes linker errors on ppc64
-export PKG_CONFIG_SYSROOT_DIR=%_sysroot/%_libdir/pkgconfig/
-export PKG_CONFIG=/usr/bin/pkg-config
+export PKG_CONFIG=/usr/bin/cross-pkg-config
 export CROSS_COMPILE=/usr/bin/aarch64-suse-linux-
 
-%cmake_qt6 --debug-output \
+%cmake_qt6 \
 %ifnarch ppc64
     -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
 %endif
