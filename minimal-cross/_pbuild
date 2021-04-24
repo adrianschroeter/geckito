@@ -1,21 +1,22 @@
 <pbuild>
-  <preset name="aarch64" default arch="aarch64">
+  <preset name="aarch64" default>
+    <arch>aarch64</arch>
     <config>sl15.3</config>
     <hostrepo>https://download.opensuse.org/repositories/home:/adrianSuSE:/Geckito/standard</hostrepo>
-    <hostrepo>https://download.opensuse.org/repositories/home:matz2:cross/openSUSE_Leap_15.3</hostrepo>
+    <hostrepo>https://download.opensuse.org/repositories/home:/matz2:/cross/openSUSE_Leap_15.3</hostrepo>
     <hostrepo>config:</hostrepo>
-    <repo>https://download.opensuse.org/repositories/home:adrianSuSE:Geckito/standard</repo>
+    <repo>https://download.opensuse.org/repositories/home:/adrianSuSE:/Geckito/standard</repo>
     <repo>config:</repo>
   </preset>
   <preset name="armv7hl">
     <config>sl15.3</config>
-    <repo>https://download.opensuse.org/repositories/home:duwe:crosstools2/openSUSE_Leap_15.3</repo>
+    <repo>https://download.opensuse.org/repositories/home:/duwe:/crosstools2/openSUSE_Leap_15.3</repo>
     <repo>https://download.opensuse.org/ports/armv7hl/distribution/leap/15.3/repo/oss/</repo>
     <repo>config:</repo>
   </preset>
   <preset name="ppc64le">
     <config>sl15.3</config>
-    <repo>https://download.opensuse.org/repositories/home:duwe:crosstools2/openSUSE_Leap_15.3</repo>
+    <repo>https://download.opensuse.org/repositories/home:/duwe:/crosstools2/openSUSE_Leap_15.3</repo>
     <repo>config:</repo>
   </preset>
 </pbuild>

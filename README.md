@@ -3,38 +3,41 @@ Geckito Templates
 
 This is a collection of build configurations to be used with pbuild.
 
-Most of them have some kind of image as result and build some additional content.
-Either via (rpm) packages or during image builds.
+Most of them have some kind of image as result and build additional content.
+This can be either via (rpm-)packages or during image builds.
 
 Prerequisites
 =============
 
-The only critical prerequisite is the pbuild tool, which is part of of "the build script".
-It can be installed as part of the "build" package from openSUSE:Tools project for 
-almost every Linux distribution:
+The only critical prerequisite is the pbuild tool, which is part of the
+SUSE's "build" package. The package is available from the
+openSUSE:Tools project for almost every Linux distribution:
 
-  https://download.opensuse.org/repositories/openSUSE:/Tools/
+    https://download.opensuse.org/repositories/openSUSE:/Tools/
 
-Alternative is to clone it from git:
+The pbuild tool is in active development and rapidly changing. Thus it
+is probably better to directly clone it from git:
 
-  git clone https://github.com/openSUSE/obs-build
+    git clone https://github.com/openSUSE/obs-build
 
-pbuild can get executed directly from the directory when running it via absolute path.
-The examples below assume an installed pbuild via packages though.
+pbuild can be executed directly from the directory containing the
+sources. Do not forget to use an absolute path to the tool if you
+run it from the obs-build git repository.
 
-pbuild can be used to compile entire distributions, but these configurations
-make use of existing binaries to speed up the build and providing supported
-content as much as possible.
+pbuild can be used to compile entire distributions. The configurations
+from this collections make use of existing binaries to speed up the
+build and providing supported content as much as possible.
 
 References to external resources are defined via presets in the _pbuild files.
 
 How To Use
 ==========
 
-Change in any subdirectory and execute pbuild. pbuild will list existing presets
-if no default is defined.
+Change in any of the provided subdirectories and execute pbuild.
+pbuild will list existing presets if no default is defined, otherwise
+it will the build the image/packages.
 
-In addition it is recommended to use a specific vm-type:
+It is recommended to use a specific vm-type:
 
  * kvm: recommended default
         - reproducible build

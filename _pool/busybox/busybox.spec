@@ -92,9 +92,11 @@ export CFLAGS="%{optflags} -fno-strict-aliasing -I/usr/include/tirpc"
 export HOSTCC=gcc
 %if "%_target_cpu" != "%_host_cpu"
 export CROSS_COMPILE=%{_target_cpu}-suse-linux-
-# as long as update-alternatives doesn't work aarch64-suse-linux-gcc
-# doesn't exist, so hardcode the real name:
-ADD_MAKE="CC=${CROSS_COMPILE}gcc-9"
+# busybox.config has CONFIG_PIE set, but we overwrite all CFLAGS
+# handling via make -e and above CFLAGS setting.  With non-cross we have
+# -fPIE in %{optflags}, due to gcc-pie, with cross we need to do that
+# ourself, for now
+CFLAGS="$CFLAGS -fPIE"
 %endif
 cp -a %{SOURCE3} .config
 make ${ADD_MAKE} %{?_smp_mflags} -e oldconfig
@@ -103,8 +105,7 @@ mv busybox busybox-static
 make ${ADD_MAKE} -e %{?_smp_mflags} clean
 cp -a %{SOURCE2} .config
 make ${ADD_MAKE} %{?_smp_mflags} -e oldconfig
-#make -e %{?_smp_mflags}
-make ${ADD_MAKE} -e
+make ${ADD_MAKE} -e %{?_smp_mflags}
 make ${ADD_MAKE} -e doc busybox.links %{?_smp_mflags}
 %if 0%{?usrmerged}
 sed -i -e 's,^/\(s\?bin\)/,/usr/\1/,' busybox.links
