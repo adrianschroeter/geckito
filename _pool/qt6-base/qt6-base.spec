@@ -706,7 +706,6 @@ export PKG_CONFIG_SYSROOT_DIR=%cross_sysroot
     -DQT_FEATURE_system_sqlite=ON \
     -DQT_FEATURE_enable_new_dtags=ON \
 %if 0%{?is_cross}
-    -G"Unix Makefiles" \
     -DQT_HOST_PATH=%_prefix \
     -DQT_BUILD_TOOLS_WHEN_CROSSCOMPILING=OFF \
     -DCMAKE_TOOLCHAIN_FILE=%{S:1} \
@@ -898,7 +897,9 @@ rm -r %{buildroot}%{_qt6_mkspecsdir}/features/uikit
 
 %files -n qt6-core-devel
 %{_qt6_cmakedir}/Qt6Core/
+%if !0%{?is_cross}
 %{_qt6_cmakedir}/Qt6CoreTools/
+%endif
 %{_qt6_descriptionsdir}/Core.json
 %{_qt6_includedir}/QtCore/
 %{_qt6_libdir}/libQt6Core.prl
