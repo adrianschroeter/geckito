@@ -5,6 +5,11 @@ Target: aarch64-suse-linux
 # our basic cross tool chain
 Required: cross-aarch64-gcc9
 Required: cross-aarch64-aaa_base
+Required: qt6-base-common-devel
+Required: qt6-base-devel
+Required: qt6-base-private-devel
+Required: qt6-tools
+Required: qt6-tools-devel
 
 # temporary workaround to break cycle dep due to wrong provides
 Preinstall: update-alternatives
