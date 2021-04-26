@@ -36,6 +36,7 @@ Summary:        Qt 6 core components (Core, Gui, Widgets, Network...)
 License:        LGPL-2.1-with-Qt-Company-Qt-exception-1.1 OR LGPL-3.0-only
 URL:            https://www.qt.io
 Source:         https://download.qt.io/official_releases/qt/%{short_version}/%{real_version}%{tar_suffix}/submodules/%{tar_name}-%{real_version}%{tar_suffix}.tar.xz
+Source1:        cross.cmake
 Source99:       qt6-base-rpmlintrc
 # Patches 0-100 are upstream patches #
 # Patches 100-200 are openSUSE and/or non-upstream(able) patches #
@@ -103,6 +104,7 @@ BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xkbcommon-x11)
 BuildRequires:  pkgconfig(xrender)
 BuildRequires:  pkgconfig(zlib)
+#!FromHost: qt6-base-common-devel
 %if 0%{?with_gles}
 BuildRequires:  Mesa-libGLESv3-devel
 BuildRequires:  pkgconfig(glesv2)
@@ -705,13 +707,15 @@ export PKG_CONFIG_SYSROOT_DIR=%cross_sysroot
     -DQT_FEATURE_enable_new_dtags=ON \
 %if 0%{?is_cross}
     -G"Unix Makefiles" \
+    -DQT_HOST_PATH=%_prefix \
+    -DQT_BUILD_TOOLS_WHEN_CROSSCOMPILING=OFF \
+    -DCMAKE_TOOLCHAIN_FILE=%{S:1} \
     -DCMAKE_HOST_SYSTEM_NAME=Linux \
     -DCMAKE_HOST_SYSTEM_PROCESSOR="%_build_cpu" \
     -DCMAKE_SYSTEM_PROCESSOR=%_target_cpu \
     -DCMAKE_C_COMPILER=%cross_gcc \
     -DCMAKE_CXX_COMPILER=%cross_gxx \
     -DCMAKE_SYSROOT=%cross_sysroot \
-    -DCROSS_COMPILE=%_bindir/%{_target_cpu}-suse-linux- \
     -DCMAKE_MAKE_PROGRAM=/usr/bin/make \
     -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER \
     -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY \
@@ -817,6 +821,7 @@ rm -r %{buildroot}%{_qt6_mkspecsdir}/features/uikit
 %dir %{_qt6_metatypesdir}
 %dir %{_qt6_mkspecsdir}
 %dir %{_qt6_mkspecsdir}/modules
+%if !0%{?is_cross}
 %{_bindir}/androiddeployqt6
 %{_bindir}/androidtestrunner6
 %{_bindir}/cmake_automoc_parser6
@@ -853,6 +858,7 @@ rm -r %{buildroot}%{_qt6_mkspecsdir}/features/uikit
 %{_qt6_bindir}/syncqt.pl
 %{_qt6_bindir}/tracegen
 %{_qt6_bindir}/uic
+%endif
 %{_qt6_cmakedir}/Qt6/
 %{_qt6_cmakedir}/Qt6BuildInternals/Qt6BuildInternalsConfig.cmake
 %{_qt6_cmakedir}/Qt6BuildInternals/QtBuildInternalsExtra.cmake
