@@ -54,10 +54,7 @@ rm -f doc/*.info
 
 %build
 export CFLAGS="%{optflags}"
-%if 0%{?is_cross}
-export CC=%cross_gcc
-%endif
-%configure --build="%_host_cpu"-suse-linux --host=%_target
+%configure
 
 
 %if %do_profiling && !0%{?is_cross}
