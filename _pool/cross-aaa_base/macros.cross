@@ -1,6 +1,6 @@
-%cross_sysroot  %{_prefix}/%{_target_cpu}-suse-linux/sys-root
-%cross_gcc %{_bindir}/%{_target_cpu}-suse-linux-gcc-9
-%cross_gxx %{_bindir}/%{_target_cpu}-suse-linux-g++-9
+%cross_sysroot  %{_prefix}/@ARCH@-suse-linux/sys-root
+%cross_gcc %{_bindir}/@ARCH@-suse-linux-gcc-9
+%cross_gxx %{_bindir}/@ARCH@-suse-linux-g++-9
 
 %is_cross %(test %_build_cpu != %_target_cpu && echo 1)
 
@@ -8,7 +8,7 @@
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
   CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
   FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
-  %{_configure} --host=%{_target} --build=%{_build} \\\
+  %{_configure} --host=@ARCH@-suse-linux-gnu --build=%{_build} \\\
         --program-prefix=%{?_program_prefix} \\\
         --disable-dependency-tracking \\\
         --prefix=%{_prefix} \\\
