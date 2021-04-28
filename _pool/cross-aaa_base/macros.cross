@@ -4,3 +4,26 @@
 
 %is_cross %(test %_build_cpu != %_target_cpu && echo 1)
 
+%configure \
+  CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
+  CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
+  FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
+  %{_configure} --host=%{_target} --build=%{_build} \\\
+        --program-prefix=%{?_program_prefix} \\\
+        --disable-dependency-tracking \\\
+        --prefix=%{_prefix} \\\
+        --exec-prefix=%{_exec_prefix} \\\
+        --bindir=%{_bindir} \\\
+        --sbindir=%{_sbindir} \\\
+        --sysconfdir=%{_sysconfdir} \\\
+        --datadir=%{_datadir} \\\
+        --includedir=%{_includedir} \\\
+        --libdir=%{_libdir} \\\
+        --libexecdir=%{_libexecdir} \\\
+        --localstatedir=%{_localstatedir} \\\
+        --sharedstatedir=%{_sharedstatedir} \\\
+        --mandir=%{_mandir} \\\
+        --infodir=%{_infodir} \\\
+        --disable-dependency-tracking
+
+

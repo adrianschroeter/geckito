@@ -15,11 +15,15 @@
 # Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
+#!NativeBuild
 %define tarch @BUILD_FLAVOR@
 %define tlibdir /usr/lib64
 %if "@BUILD_FLAVOR@" == ""
 ExclusiveArch: skipit
 %endif
+
+# keep in sync with macros.cross definition
+%define cross_sysroot %{_prefix}/%{tarch}-suse-linux/sys-root
 
 Name:           cross-%{tarch}-aaa_base
 Summary:        Provides the basics for cross compiling on SUSE
@@ -37,8 +41,11 @@ Source1:        macros.cross
 %build
 cp %{S:0} .
 
-# keep in sync with macros.cross definition
-%define cross_sysroot %{_prefix}/%{tarch}-suse-linux/sys-root
+cat > cross-buildsystem.sh <<EOF
+# Setting up cross compiler
+export CC=%{tarch}-suse-linux-gcc
+export CXX=%{tarch}-suse-linux-g++
+EOF
 
 cat > cross-pkg-config <<EOF
 #!/bin/sh
@@ -54,6 +61,7 @@ EOF
 
 %install
 install -D -m 0755 cross-pkg-config %buildroot%{_bindir}/cross-%{tarch}-pkg-config
+install -D -m 0644 cross-buildsystem.sh %buildroot/etc/profile.d/cross-buildsystem.sh
 install -D -m 0644 %{S:1} %buildroot/etc/rpm/macros.cross
 sed -i -e 's,@ARCH@,%{tarch},' %buildroot/etc/rpm/macros.cross
 
@@ -61,5 +69,6 @@ sed -i -e 's,@ARCH@,%{tarch},' %buildroot/etc/rpm/macros.cross
 %license LICENSE.GPL3
 %{_bindir}/cross-%{tarch}-pkg-config
 /etc/rpm/macros.cross
+/etc/profile.d/cross-buildsystem.sh
 
 %changelog
