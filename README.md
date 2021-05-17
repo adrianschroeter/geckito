@@ -1,10 +1,30 @@
 Geckito Templates
 =================
 
-This is a collection of build configurations to be used with pbuild.
+Geckito is an umbrella project to make (open)SUSE distributions ready
+for Edge and IoT environments.
+
+It consists of
+
+ * The build tooling
+
+ * The distribution in binary and source form
+
+ * A collection of templates to demonstrate various forms of building,
+   including image, container and package builds.
+   These templates are provided here in this git repository
 
 Most of them have some kind of image as result and build additional content.
 This can be either via (rpm-)packages or during image builds.
+
+Unlike other IoT projects Geckito allows to re-use as many pre-build
+binaries as possible, while still allowing a rebuild of them. This 
+allows faster turn-around times and also provides a perspective of
+providing maintainable images in the long term.
+
+The build can happen entirely local using the "pbuild" tool. Sources
+and binaries can get exchanged with the Open Build Service (OBS), but
+also via alternatives like git repositories.
 
 Prerequisites
 =============
